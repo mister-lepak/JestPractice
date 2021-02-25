@@ -5,7 +5,12 @@ import {
   calculator,
   caesarCipher,
   analyze,
+  fetchData,
 } from "./index";
+// AFTER
+jest.mock("node-fetch");
+import fetch from "node-fetch";
+const { Response } = jest.requireActual("node-fetch");
 
 test("Takes a string and returns that string with the first character capitalized", () => {
   const stringInput = "test";
@@ -31,4 +36,12 @@ test("Test Caesar Cipher", () => {
 test("takes an array of numbers and returns an object with the following properties: average, min, max, and length.", () => {
   const data = [1, 8, 3, 4, 2, 6];
   expect(analyze(data)).toEqual({ average: 4, min: 1, max: 8, length: 6 });
+});
+
+test("the data is 28", () => {
+  return fetchData("https://www.balldontlie.io/api/v1/teams/28").then(
+    (data) => {
+      expect(data.id).toBe("28");
+    }
+  );
 });

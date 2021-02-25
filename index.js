@@ -1,3 +1,5 @@
+// const fetch = require("node-fetch");
+
 const capitalize = (string) => {
   const firstChar = string.slice(0, 1).toUpperCase();
   const restChar = string.slice(1);
@@ -88,10 +90,24 @@ const analyze = (array) => {
   };
 };
 
+const fetchData = (url) => {
+  return fetch(url)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data.id);
+      return data.id;
+    });
+};
+
+fetchData("https://www.balldontlie.io/api/v1/teams/28");
+
 module.exports = {
   capitalize,
   reverseString,
   calculator,
   caesarCipher,
   analyze,
+  fetchData,
 };
